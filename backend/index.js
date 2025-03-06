@@ -11,6 +11,9 @@ const app = express();
 const port = process.env.PORT;
 const host = process.env.HOST;
 
+
+app.use('/uploads', express.static('uploads'));
+
 app.use(bodyParser.json());
 
 app.use(cors({
@@ -39,8 +42,14 @@ sequelize.sync().then( () => {
 });
 
 const userRoutes = require('./controllers/user')
+const postRoutes = require('./controllers/post')
+const commentRoutes = require('./controllers/comment')
+
 
 app.use('/api/users', userRoutes)
+app.use('/api/posts', postRoutes)
+app.use('/api/comments', commentRoutes)
+
 
 
 app.listen(port, () => {
